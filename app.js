@@ -24,7 +24,9 @@ axios
         const { daysOnZillow, homeType, taxAssessedValue } = hdpData.homeInfo;
 
         return {
-          __priceToValueRatio: !taxAssessedValue ? undefined : unformattedPrice / taxAssessedValue,
+          __priceToValueRatio: !taxAssessedValue
+            ? undefined
+            : Number((unformattedPrice / taxAssessedValue).toFixed(2)),
           address,
           area,
           baths,

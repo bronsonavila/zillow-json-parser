@@ -4,7 +4,7 @@ Just a way for me to browse Zillow's search results more efficiently. Outputs se
 
 ```javascript
 {
-  __priceToValueRatio: 0.9945088468578401,
+  __priceToValueRatio: 0.99,
   address: '94-1446 Lanikuhana Ave APT 405, Mililani, HI 96789',
   area: 1158,
   baths: 3,
