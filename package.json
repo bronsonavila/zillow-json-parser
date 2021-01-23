@@ -1,13 +1,13 @@
 {
-  "name": "zillow",
+  "name": "zillow-json-parser",
   "version": "1.0.0",
-  "description": "",
+  "description": "Gotta parse that JSON.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Bronson Avila",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
