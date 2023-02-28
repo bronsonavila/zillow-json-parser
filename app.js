@@ -26,17 +26,7 @@ axios
     const { listResults } = response.data.cat1.searchResults;
     const homes = listResults
       .map(result => {
-        const {
-          address,
-          area,
-          baths,
-          beds,
-          detailUrl,
-          hdpData,
-          imgSrc,
-          unformattedPrice,
-          zestimate,
-        } = result;
+        const { address, area, baths, beds, detailUrl, hdpData, zestimate } = result;
 
         const { dateSold, homeType, price, taxAssessedValue } = hdpData.homeInfo;
 
@@ -56,7 +46,6 @@ axios
           zestimate,
         };
       })
-      // .filter(home => home.beds > 2 && home.beds < 5 && home.statusText !== 'In Escrow Showing' && home.unformattedPrice < 999999)
       .sort((a, b) =>
         a.__priceToValueRatio < b.__priceToValueRatio || !a.__priceToValueRatio ? 1 : -1
       );
