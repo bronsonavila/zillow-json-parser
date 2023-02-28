@@ -1,8 +1,27 @@
 const axios = require('axios');
+const fs = require('fs');
+const { parse } = require('json2csv');
+
+const fields = [
+  '__priceToValueRatio',
+  'address',
+  'area',
+  'baths',
+  'beds',
+  'dateSold',
+  'detailUrl',
+  'homeType',
+  'imgSrc',
+  'price',
+  'taxAssessedValue',
+  'zestimate',
+];
+const opts = { fields };
+
 require('dotenv').config();
 
 axios
-  .request({ url: process.env.URL, headers: { 'User-Agent': 'PostmanRuntime/7.26.8' } }) // Shhh...
+  .request({ url: process.env.URL, headers: { 'User-Agent': 'PostmanRuntime/7.26.8' } })
   .then(response => {
     const { listResults } = response.data.cat1.searchResults;
     const homes = listResults
@@ -15,36 +34,34 @@ axios
           detailUrl,
           hdpData,
           imgSrc,
-          price,
-          statusText,
           unformattedPrice,
           zestimate,
         } = result;
 
-        const { daysOnZillow, homeType, taxAssessedValue } = hdpData.homeInfo;
+        const { dateSold, homeType, price, taxAssessedValue } = hdpData.homeInfo;
 
         return {
           __priceToValueRatio: !taxAssessedValue
             ? undefined
-            : Number((unformattedPrice / taxAssessedValue).toFixed(2)),
+            : Number((price / taxAssessedValue).toFixed(2)),
           address,
           area,
           baths,
           beds,
-          daysOnZillow,
+          dateSold: new Date(dateSold).toLocaleDateString(),
           detailUrl,
           homeType,
-          imgSrc,
           price,
-          statusText,
           taxAssessedValue,
-          unformattedPrice,
           zestimate,
         };
       })
+      // .filter(home => home.beds > 2 && home.beds < 5 && home.statusText !== 'In Escrow Showing' && home.unformattedPrice < 999999)
       .sort((a, b) =>
         a.__priceToValueRatio < b.__priceToValueRatio || !a.__priceToValueRatio ? 1 : -1
       );
 
     console.log(homes);
+
+    fs.writeFileSync('homes.csv', parse(homes, opts));
   });
