@@ -1,6 +1,6 @@
 # Zillow JSON Parser
 
-Just a way for me to browse Zillow's search results more efficiently. Outputs search results as an array of parsed JSON, e.g.:
+Just a way for me to browse Zillow's search results more efficiently. Results are logged as an array of parsed JSON and written to a CSV, e.g.:
 
 ```javascript
 [
